@@ -230,6 +230,14 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
 .side-cards { display:flex; gap:1px; }
 .mini-card-xs { width:24px; height:18px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-family:'Orbitron',sans-serif; font-size:9px; font-weight:700; color:#fff; flex-shrink:0; border:1px solid rgba(255,255,255,0.1); cursor:pointer; }
 
+/* form-row / form-card — كروت التشكيلة في وضع اتنين لاعبين (كانت ناقصة، وده اللي كان بيخلي صورة اللاعب تكبر وتغطي الملعب) */
+.form-row { display:flex; align-items:center; justify-content:center; gap:3px; flex-wrap:nowrap; height:100%; }
+.form-card { width:30px; height:42px; border-radius:5px; position:relative; overflow:hidden; flex-shrink:0; border:1.5px solid rgba(255,255,255,0.15); cursor:pointer; }
+.form-card.captain-card { border-color:rgba(255,215,0,0.7); box-shadow:0 0 5px rgba(255,215,0,0.4); }
+.form-card.selected-form { border-color:#00e5ff !important; transform:translateY(-4px); box-shadow:0 3px 10px rgba(0,229,255,0.5); }
+.form-card.card-placed { animation:impactShake 0.3s ease-out both; }
+.form-drop { width:30px; height:42px; border:1.5px dashed rgba(255,255,255,0.15); border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:16px; color:rgba(255,255,255,0.15); flex-shrink:0; cursor:pointer; }
+
 /* POPUPS */
 .popup-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:100; align-items:center; justify-content:center; }
 .popup-overlay.show { display:flex; }
