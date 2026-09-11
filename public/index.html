@@ -414,8 +414,6 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
 </head>
 <body>
 
-<!-- BANNER AD - shown outside game -->
-
 
 <!-- LANGUAGE SELECTION SCREEN -->
 <div id="lang-screen">
@@ -593,7 +591,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
       <div class="burned-title" id="winBurnedTitle">🔥 BURNED CARDS</div>
       <div class="burned-cards" id="winBurnedCards"></div>
     </div>
-    <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="playAgainWithAd()" id="newGameBtn">🔄 Play Again</button>
+    <button class="btn btn-primary" style="width:100%;margin-top:4px" onclick="playAgain()" id="newGameBtn">🔄 Play Again</button>
   </div>
 </div>
 
@@ -927,8 +925,13 @@ function copyCode(){
 }
 
 function startGame(){
-
+  const startBtn = document.getElementById('startGameBtn');
+  if(startBtn){ startBtn.disabled = true; startBtn.style.opacity = '0.6'; }
   socket.emit('start_game');
+}
+
+function playAgain(){
+  socket.emit('reset_room');
 }
 
 socket.on('room_created',({code})=>{
@@ -973,8 +976,6 @@ socket.on('room_reset', ({ players }) => {
 });
 
 socket.on('game_started', () => {
-
-  hideBannerAd();
   showScreen('game');
 });
 
@@ -1091,7 +1092,12 @@ socket.on('game_over',({winner, winnerField, burnedPile})=>{
   document.getElementById('win-screen').classList.add('show');
 });
 
-socket.on('error',({msg})=>showToast(msg,true));
+socket.on('error',({msg})=>{
+  showToast(msg,true);
+  // لو فشل بدء اللعبة لأي سبب، رجّع الزرار يشتغل تاني
+  const startBtn = document.getElementById('startGameBtn');
+  if(startBtn && startBtn.disabled){ startBtn.disabled = false; startBtn.style.opacity = '1'; }
+});
 
 socket.on('player_left',({msg})=>showToast(t('playerLeft',msg),true));
 
@@ -1710,7 +1716,7 @@ function makeMiniCard(card,clickable,zone,oppData){
 // خريطة الصور — كل رقم عنده مصفوفة لاعبين
 const playerImgMap = {
   'JOKER':  ['images/gullit.png'],
-  'GK_1':   ['images/gk_courtois.png','images/gk_neuer.png','images/gk_buffon.png'],
+  'GK_1':   ['images/gk_courtois.png','images/gk_neuer.png','images/gk_buffon.png','images/Gemini_Generated_Image_tfyuputfyuputfyu.jpg','images/Gemini_Generated_Image_ntmjqpntmjqpntmj.jpg','images/Gemini_Generated_Image_ny64lbny64lbny64.jpg','images/Gemini_Generated_Image_ndac1nndac1nndac.jpg','images/Gemini_Generated_Image_ym5mx0ym5mx0ym5m.jpg','images/Gemini_Generated_Image_xys1hsxys1hsxys1.jpg','images/Gemini_Generated_Image_zf8lm5zf8lm5zf8l.jpg','images/Gemini_Generated_Image_ovf0leovf0leovf0.jpg','images/Gemini_Generated_Image_rxe5g2rxe5g2rxe5.jpg','images/Gemini_Generated_Image_rq2tjirq2tjirq2t.jpg','images/Gemini_Generated_Image_n9jrgvn9jrgvn9jr.jpg','images/Gemini_Generated_Image_c7usnsc7usnsc7us.jpg','images/Gemini_Generated_Image_4agzf94agzf94agz.jpg','images/Gemini_Generated_Image_g9j0p1g9j0p1g9j0.jpg','images/Gemini_Generated_Image_lx05clx05clx05cl.jpg','images/Gemini_Generated_Image_3bc1ik3bc1ik3bc1.jpg','images/Gemini_Generated_Image_2dvqm52dvqm52dvq.jpg','images/Gemini_Generated_Image_a9wb06a9wb06a9wb.jpg','images/Gemini_Generated_Image_2mn67z2mn67z2mn6.jpg','images/Gemini_Generated_Image_7tvibm7tvibm7tvi.jpg','images/Gemini_Generated_Image_6oj6wl6oj6wl6oj6.jpg','images/Gemini_Generated_Image_dfxg59dfxg59dfxg.jpg','images/Gemini_Generated_Image_4h8f7q4h8f7q4h8f.jpg','images/Gemini_Generated_Image_c13us8c13us8c13u.jpg','images/Gemini_Generated_Image_729eri729eri729e.jpg','images/Gemini_Generated_Image_bdlvmebdlvmebdlv.jpg','images/Gemini_Generated_Image_6o34bp6o34bp6o34.jpg'],
   'DEF_2':  ['images/def2_cafu.png','images/def2_lahm.png'],
   'DEF_3':  ['images/def3_maldini.png','images/def3_roberto.png'],
   'DEF_4':  ['images/def4_beckenbauer.png','images/def4_ramos.png'],
