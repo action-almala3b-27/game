@@ -975,7 +975,12 @@ socket.on('players_update',({players})=>{
 socket.on('room_reset', ({ players }) => {
   document.getElementById('win-screen').classList.remove('show');
   const startBtn = document.getElementById('startGameBtn');
-  if (startBtn) startBtn.style.display = isRoomOwner && players.length >= 2 ? 'block' : 'none';
+  if (startBtn) {
+    startBtn.style.display = isRoomOwner && players.length >= 2 ? 'block' : 'none';
+    // لازم نرجّع الزرار شغال تاني بعد اللعب مرة تانية، كان فاضل disabled من الماتش اللي فات
+    startBtn.disabled = false;
+    startBtn.style.opacity = '1';
+  }
   const waitMsg = document.getElementById('waitingMsg');
   if (waitMsg) waitMsg.textContent = players.length >= 2 ? t('waitingMsgReady') : t('waitingMsg');
   const list = document.getElementById('playersList');
@@ -1750,13 +1755,15 @@ function preloadAllImages(){
 // كاش عشان نفس الكارت (نفس id) دايما نفس الصورة
 const cardImgCache = {};
 function getPlayerImage(card){
-  if(cardImgCache[card.id]) return cardImgCache[card.id];
   const key = card.joker ? 'JOKER' : (card.zone + '_' + card.number);
   const arr = playerImgMap[key];
   if(!arr || arr.length===0) return null;
-  // استخدم imgIdx من السيرفر لو موجود، وإلا random
-  const idx = (card.imgIdx !== undefined) ? (card.imgIdx % arr.length) : Math.floor(Math.random() * arr.length);
-  const img = arr[idx];
+  // السيرفر بيبعت imgIdx ثابت لكل كارت — استخدمه على طول من غير كاش، عشان الكاش القديم كان بيتقفل على أول 2-3 صور
+  // وبيفضل واقف عليهم في كل ماتش جديد لأن الـ id بيرجع يبدأ من 1 تاني
+  if(card.imgIdx !== undefined) return arr[card.imgIdx % arr.length];
+  // مفيش imgIdx (كارت مالوش رقم من السيرفر) — استخدم كاش عشوائي ثابت طول الجلسة
+  if(cardImgCache[card.id]) return cardImgCache[card.id];
+  const img = arr[Math.floor(Math.random() * arr.length)];
   cardImgCache[card.id] = img;
   return img;
 }
