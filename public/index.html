@@ -231,12 +231,15 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
 .mini-card-xs { width:24px; height:18px; border-radius:3px; display:flex; align-items:center; justify-content:center; font-family:'Orbitron',sans-serif; font-size:9px; font-weight:700; color:#fff; flex-shrink:0; border:1px solid rgba(255,255,255,0.1); cursor:pointer; }
 
 /* form-row / form-card — كروت التشكيلة في وضع اتنين لاعبين (كانت ناقصة، وده اللي كان بيخلي صورة اللاعب تكبر وتغطي الملعب) */
-.form-row { display:flex; align-items:center; justify-content:space-evenly; gap:2px; flex-wrap:nowrap; height:100%; width:100%; }
+.form-row { display:flex; align-items:center; justify-content:space-evenly; gap:2px; flex-wrap:nowrap; height:100%; width:100%; position:relative; }
+.form-row.form-row-zone { background:rgba(0,0,0,0.12); border-bottom:1px solid rgba(255,255,255,0.15); }
+.form-row-zone-label { position:absolute; top:1px; left:3px; font-size:6px; color:rgba(255,255,255,0.45); text-shadow:0 1px 2px #000; z-index:1; pointer-events:none; letter-spacing:0.5px; }
 .form-card { width:34px; height:48px; border-radius:5px; position:relative; overflow:hidden; flex-shrink:0; border:1.5px solid rgba(255,255,255,0.15); cursor:pointer; }
 .form-card.captain-card { border-color:rgba(255,215,0,0.7); box-shadow:0 0 5px rgba(255,215,0,0.4); }
 .form-card.selected-form { border-color:#00e5ff !important; transform:translateY(-4px); box-shadow:0 3px 10px rgba(0,229,255,0.5); }
 .form-card.card-placed { animation:impactShake 0.3s ease-out both; }
-.form-drop { width:34px; height:48px; border:1.5px dashed rgba(255,255,255,0.15); border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:17px; color:rgba(255,255,255,0.15); flex-shrink:0; cursor:pointer; }
+.form-drop { width:34px; height:48px; border:2px dashed rgba(0,229,255,0.55); background:rgba(0,229,255,0.08); border-radius:5px; display:flex; align-items:center; justify-content:center; font-size:17px; color:rgba(0,229,255,0.75); flex-shrink:0; cursor:pointer; }
+.form-drop:active { background:rgba(0,229,255,0.2); }
 
 /* POPUPS */
 .popup-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); z-index:100; align-items:center; justify-content:center; }
@@ -477,48 +480,50 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
     <div class="opp-left" id="opp-left-area" style="display:none"><div class="opp-left-inner" id="opp-left-inner"></div></div>
 
     <!-- 3-4 player split-screen layout — same pitch, split into halves/quarters -->
-    <div id="multi-player-layout" style="display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0;width:100%;">
+    <div id="multi-player-layout" style="display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0;width:100%;position:relative;z-index:2;">
 
       <!-- النص العلوي: في الثلاثي فيه لاعبين جنب بعض (مفصولين بخط)، في الرباعي لاعبين برضه -->
-      <div id="mp-top-half" style="flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0;">
-        <div id="mp-top-right" class="mp-quarter mp-top-quarter" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;border-left:1px solid rgba(255,255,255,0.25);">
+      <div id="mp-top-half" style="flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0;border-bottom:1px solid rgba(255,255,255,0.4);">
+        <div id="mp-top-right" class="mp-quarter mp-top-quarter" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;border-left:1px solid rgba(255,255,255,0.4);">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:0 6px 1px;flex-shrink:0;">
             <div class="mp-opp-name" data-slot="topRight" style="font-size:9px;color:rgba(255,255,255,0.9);text-shadow:0 1px 4px rgba(0,0,0,0.9);font-family:Tajawal,sans-serif;font-weight:700;">👤 ...</div>
             <div class="mp-opp-hand" data-slot="topRight" style="font-size:8px;color:rgba(255,255,255,0.7);text-shadow:0 1px 3px #000;">🃏 0</div>
           </div>
-          <div class="form-row mp-row" data-slot="topRight" data-zone="GK" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topRight" data-zone="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topRight" data-zone="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topRight" data-zone="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topRight" data-zone="GK" data-zone-label="GK" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topRight" data-zone="DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topRight" data-zone="MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topRight" data-zone="ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
         </div>
         <div id="mp-top-left" class="mp-quarter mp-top-quarter" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;">
           <div style="display:flex;justify-content:space-between;align-items:center;padding:0 6px 1px;flex-shrink:0;">
             <div class="mp-opp-name" data-slot="topLeft" style="font-size:9px;color:rgba(255,255,255,0.9);text-shadow:0 1px 4px rgba(0,0,0,0.9);font-family:Tajawal,sans-serif;font-weight:700;">👤 ...</div>
             <div class="mp-opp-hand" data-slot="topLeft" style="font-size:8px;color:rgba(255,255,255,0.7);text-shadow:0 1px 3px #000;">🃏 0</div>
           </div>
-          <div class="form-row mp-row" data-slot="topLeft" data-zone="GK" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topLeft" data-zone="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topLeft" data-zone="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="topLeft" data-zone="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topLeft" data-zone="GK" data-zone-label="GK" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topLeft" data-zone="DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topLeft" data-zone="MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="topLeft" data-zone="ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
         </div>
       </div>
 
       <!-- النص السفلي: في الثلاثي أنا لوحدي (زي الثنائي)، في الرباعي أنا + لاعب جنبي -->
       <!-- ترتيب DOM من فوق لتحت: ATK (قريب من النص) -> MID -> DEF -> GK (بعيد، منطقة الجزاء) -->
       <div id="mp-bottom-half" style="flex:1;display:flex;flex-direction:row;overflow:hidden;min-height:0;">
-        <div id="mp-bottom-right" class="mp-quarter mp-bottom-quarter" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;border-left:1px solid rgba(255,255,255,0.25);">
-          <div class="form-row" id="mp-my-row-ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
-          <div class="form-row" id="mp-my-row-MID" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row" id="mp-my-row-DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div id="mp-my-gk-row" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:56px;">
+        <div id="mp-bottom-right" class="mp-quarter mp-bottom-quarter" style="flex:1;display:flex;flex-direction:column;overflow:hidden;min-height:0;border-left:1px solid rgba(255,255,255,0.4);">
+          <div class="form-row form-row-zone" id="mp-my-row-ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+          <div class="form-row form-row-zone" id="mp-my-row-MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone" id="mp-my-row-DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div id="mp-my-gk-row" class="form-row-zone" data-zone-label="GK" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:56px;">
+            <span class="form-row-zone-label">GK</span>
             <div id="mp-my-row-GK" style="display:flex;gap:4px;align-items:center;justify-content:center;overflow:hidden;"></div>
           </div>
         </div>
         <div id="mp-bottom-left" class="mp-quarter mp-bottom-quarter" style="flex:1;display:none;flex-direction:column;overflow:hidden;min-height:0;">
-          <div class="form-row mp-row" data-slot="bottomLeft" data-zone="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
-          <div class="form-row mp-row" data-slot="bottomLeft" data-zone="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div class="form-row mp-row" data-slot="bottomLeft" data-zone="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
-          <div style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:56px;">
+          <div class="form-row form-row-zone mp-row" data-slot="bottomLeft" data-zone="ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="bottomLeft" data-zone="MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div class="form-row form-row-zone mp-row" data-slot="bottomLeft" data-zone="DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+          <div style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:56px;" class="form-row-zone" data-zone-label="GK">
+            <span class="form-row-zone-label">GK</span>
             <div class="form-row mp-row" data-slot="bottomLeft" data-zone="GK" style="display:flex;gap:4px;align-items:center;justify-content:center;overflow:hidden;"></div>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;padding:1px 6px 2px;flex-shrink:0;">
@@ -530,7 +535,7 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
     </div>
 
     <!-- 2-player split screen — fills the pitch image -->
-    <div id="two-player-layout" style="display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0;width:100%;">
+    <div id="two-player-layout" style="display:none;flex:1;flex-direction:column;overflow:hidden;min-height:0;width:100%;position:relative;z-index:2;">
 
       <!-- نصف الشاشة العلوي — الخصم (GK أعلى، ATK قريب من المنتصف) -->
       <div id="opp-formation-half" style="flex:1;display:flex;flex-direction:column;overflow:hidden;padding:2px 0 0;min-height:0;">
@@ -539,11 +544,11 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
           <div id="oppHandCount" style="font-size:9px;color:rgba(255,255,255,0.7);text-shadow:0 1px 3px #000;">🃏 0</div>
         </div>
         <!-- GK أعلى (بعيد عن الخط)، ATK أسفل (قريب من الخط) -->
-        <div class="form-row" id="opp-row-GK" style="flex:1;min-height:0;overflow:hidden;"></div>
-        <div class="form-row" id="opp-row-DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
-        <div class="form-row" id="opp-row-MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+        <div class="form-row form-row-zone" id="opp-row-GK" data-zone-label="GK" style="flex:1;min-height:0;overflow:hidden;"></div>
+        <div class="form-row form-row-zone" id="opp-row-DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+        <div class="form-row form-row-zone" id="opp-row-MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
         <!-- ATK الخصم قريب من خط المنتصف — الجزء الدائري العلوي -->
-        <div class="form-row" id="opp-row-ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+        <div class="form-row form-row-zone" id="opp-row-ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
       </div>
 
       <!-- لا يوجد خط مضاف — الخلفية نفسها فيها الخط الأبيض -->
@@ -551,13 +556,14 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
       <!-- نصف الشاشة السفلي — أنا (ATK/MID/DEF فقط، الحارس تحت منفصل في منطقة الجزاء) -->
       <div id="my-formation-half" style="flex:1;display:flex;flex-direction:column;overflow:hidden;padding:0 0 2px;min-height:0;">
         <!-- ATK قريب من خط المنتصف (الجزء الدائري السفلي) -->
-        <div class="form-row" id="my-row-ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
-        <div class="form-row" id="my-row-MID" style="flex:1;min-height:0;overflow:hidden;"></div>
-        <div class="form-row" id="my-row-DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
+        <div class="form-row form-row-zone" id="my-row-ATK" data-zone-label="ATK" style="flex:1;min-height:0;overflow:hidden;max-height:60px;"></div>
+        <div class="form-row form-row-zone" id="my-row-MID" data-zone-label="MID" style="flex:1;min-height:0;overflow:hidden;"></div>
+        <div class="form-row form-row-zone" id="my-row-DEF" data-zone-label="DEF" style="flex:1;min-height:0;overflow:hidden;"></div>
       </div>
 
       <!-- منطقة الحارس في منطقة الجزاء -->
-      <div id="my-gk-row" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:60px;position:relative;z-index:2;">
+      <div id="my-gk-row" class="form-row-zone" data-zone-label="GK" style="flex-shrink:0;display:flex;align-items:center;justify-content:center;padding:2px 6px;min-height:60px;position:relative;z-index:2;">
+        <span class="form-row-zone-label">GK</span>
         <div id="my-row-GK" style="display:flex;gap:4px;align-items:center;justify-content:center;overflow:hidden;position:relative;z-index:2;"></div>
       </div>
     </div>
@@ -1547,6 +1553,17 @@ function makeFormCard(card, clickable, zone, oppData){
   return el;
 }
 
+// يضيف تسمية الزون (GK/DEF/MID/ATK) للصف بعد ما بيتمسح، لو عنده data-zone-label
+function injectZoneLabel(row){
+  if(!row) return;
+  const label = row.getAttribute('data-zone-label');
+  if(!label) return;
+  const lbl = document.createElement('span');
+  lbl.className = 'form-row-zone-label';
+  lbl.textContent = label;
+  row.appendChild(lbl);
+}
+
 function renderMyFormation(){
   const zones=['GK','DEF','MID','ATK'];
   const fieldCount=Object.values(myField).reduce((s,z)=>s+z.length,0);
@@ -1563,7 +1580,9 @@ function renderMyFormation(){
       h.onclick=()=>{ if(selectedCard) placeSelected(zone); };
       row.appendChild(h);
     }
+    injectZoneLabel(row);
   });
+  // GK label على الحاوية الخارجية (my-gk-row) اللي معندهاش innerHTML بيتمسح
 }
 
 function renderOppFormation(){
@@ -1574,7 +1593,7 @@ function renderOppFormation(){
     if(oppNameEl) oppNameEl.textContent='👤 ...';
     if(oppHandEl) oppHandEl.textContent='🃏 0';
     ['GK','DEF','MID','ATK'].forEach(z=>{
-      const r=document.getElementById('opp-row-'+z); if(r) r.innerHTML='';
+      const r=document.getElementById('opp-row-'+z); if(r){ r.innerHTML=''; injectZoneLabel(r); }
     });
     return;
   }
@@ -1589,6 +1608,7 @@ function renderOppFormation(){
     (opp.field[zone]||[]).forEach(card=>{
       row.appendChild(makeFormCard(card,false,zone,opp));
     });
+    injectZoneLabel(row);
   });
 }
 
@@ -1613,6 +1633,7 @@ function renderMyMultiFormation(){
       h.onclick=()=>{ if(selectedCard) placeSelected(zone); };
       row.appendChild(h);
     }
+    injectZoneLabel(row);
   });
 }
 
@@ -1643,7 +1664,7 @@ function fillMultiQuarter(slot, opp){
   if(!opp){
     if(nameEl) nameEl.textContent='👤 ...';
     if(handEl) handEl.textContent='🃏 0';
-    rows.forEach(r=>r.innerHTML='');
+    rows.forEach(r=>{ r.innerHTML=''; injectZoneLabel(r); });
     return;
   }
   if(nameEl) nameEl.textContent=`👤 ${opp.name}${opp.skipped?' ⏭':''}`;
@@ -1655,6 +1676,7 @@ function fillMultiQuarter(slot, opp){
     (opp.field[zone]||[]).forEach(card=>{
       row.appendChild(makeFormCard(card,false,zone,opp));
     });
+    injectZoneLabel(row);
   });
 }
 
