@@ -19,24 +19,6 @@ app.get('/', (req, res) => {
 });
 app.get('/ping', (req, res) => res.send('ok'));
 
-// VAST proxy endpoint
-const VAST_URL = 'https://faithfuloccasion.com/damWF/zXd.GSNjvGZ/GLUb/le/mz9QurZCUklgkSPjT/Ya5YOhDYc_zZNTTMMJtGN-jZkh4lNvzRMN1ENXwj';
-app.get('/vast', async (req, res) => {
-  try {
-    const https = require('https');
-    const url = new URL(VAST_URL);
-    https.get({ hostname: url.hostname, path: url.pathname + url.search, headers: { 'User-Agent': 'Mozilla/5.0' } }, (r) => {
-      let data = '';
-      r.on('data', chunk => data += chunk);
-      r.on('end', () => {
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Content-Type', 'text/xml');
-        res.send(data);
-      });
-    }).on('error', e => res.status(500).send('Error: ' + e.message));
-  } catch(e) { res.status(500).send('Error: ' + e.message); }
-});
-
 // ========== CARD DEFINITIONS ==========
 function buildDeck() {
   const deck = [];
@@ -53,7 +35,7 @@ function buildDeck() {
 
   // GOALKEEPERS (30) — كلهم رقم 1
   for (let i = 0; i < 30; i++) {
-    deck.push({ id: id++, type: 'player', zone: 'GK', number: 1, star: false, captain: false, imgIdx: nextImg('GK_1', 3) });
+    deck.push({ id: id++, type: 'player', zone: 'GK', number: 1, star: false, captain: false, imgIdx: nextImg('GK_1', 30) });
   }
 
   // ===================================================
@@ -147,37 +129,7 @@ function shuffle(arr) {
 }
 
 // ========== GAME STATE ==========
-const fs = require('fs');
-const ROOMS_FILE = '/tmp/almala3b_rooms.json';
 const rooms = {};
-
-// تحميل غرف الـ waiting المحفوظة عند الـ restart
-function loadRooms() {
-  try {
-    if (!fs.existsSync(ROOMS_FILE)) return;
-    const data = JSON.parse(fs.readFileSync(ROOMS_FILE, 'utf8'));
-    const now = Date.now();
-    for (const [code, room] of Object.entries(data)) {
-      if (room.createdAt && now - room.createdAt > 3600000) continue; // أقدم من ساعة
-      if (room.state === 'waiting') rooms[code] = room;
-    }
-  } catch(e) {}
-}
-
-// حفظ غرف الـ waiting على الديسك
-function saveRooms() {
-  try {
-    const exportable = {};
-    for (const [code, room] of Object.entries(rooms)) {
-      if (room.state === 'waiting' && room.players.length > 0) {
-        exportable[code] = { ...room, pendingSpecial: null, deck: [], createdAt: room.createdAt || Date.now() };
-      }
-    }
-    fs.writeFileSync(ROOMS_FILE, JSON.stringify(exportable));
-  } catch(e) {}
-}
-
-loadRooms();
 
 function createRoom(code) {
   return {
@@ -320,7 +272,6 @@ io.on('connection', (socket) => {
     socket.data.name = playerName;
     socket.emit('room_created', { code });
     io.to(code).emit('players_update', { players: room.players.map(p => p.name) });
-    saveRooms();
   });
 
   // JOIN ROOM
@@ -337,7 +288,6 @@ io.on('connection', (socket) => {
     socket.data.name = playerName;
     socket.emit('room_joined', { code });
     io.to(code).emit('players_update', { players: room.players.map(p => p.name) });
-    saveRooms();
   });
 
   // ========== التعديل 3: إضافة زر START GAME ==========
@@ -386,7 +336,6 @@ io.on('connection', (socket) => {
       p._drawnThisTurn = 0;
     });
     io.to(code).emit('room_reset', { players: room.players.map(p => p.name) });
-    saveRooms();
   });
 
   // PLACE CARD
@@ -497,6 +446,14 @@ io.on('connection', (socket) => {
           if (owner) {
             const zone = l.card.zone === 'JOKER' ? 'ATK' : l.card.zone;
             owner.field[zone].push(l.card);
+            // الإنذار يرجع مع الكارت لصاحبه الأصلي
+            if (player.yellows[l.card.id]) {
+              owner.yellows[l.card.id] = player.yellows[l.card.id];
+              delete player.yellows[l.card.id];
+            }
+          } else {
+            // لو صاحب الكارت غادر اللعبة، نمسح الإنذار عشان ميفضلش عالق عند المستعير
+            delete player.yellows[l.card.id];
           }
         }
       }
@@ -728,7 +685,6 @@ io.on('connection', (socket) => {
       io.to(code).emit('player_left', { msg: `${socket.data.name} غادر اللعبة` });
       broadcastState(room);
     }
-    saveRooms();
   });
 });
 
@@ -838,6 +794,11 @@ function applySpecial(room, { card, fromIdx, targetPlayerIdx, targetCardId, targ
           attacker.field[z] = attacker.field[z] || [];
           attacker.field[z].push(loaned);
           attacker.loanedCards.push({ card: loaned, turns: 2, ownerSocketId: defender.socketId });
+          // الإنذار ينتقل مع الكارت المُعار عشان يفضل ظاهر عند المستعير
+          if (defender.yellows[loaned.id]) {
+            attacker.yellows[loaned.id] = defender.yellows[loaned.id];
+            delete defender.yellows[loaned.id];
+          }
           break;
         }
       }
