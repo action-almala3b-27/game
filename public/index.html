@@ -421,6 +421,124 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
   transition:background 0.15s; color:#fff;
 }
 .react-btn:hover { background:rgba(255,255,255,0.12); }
+
+/* ===== RULES TEASER (under Create/Join Room) ===== */
+.rules-teaser {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  user-select: none;
+}
+.rules-teaser-text {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.rules-teaser-ar {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 13px;
+  color: rgba(0,229,255,0.85);
+}
+.rules-teaser-sep { color: rgba(255,255,255,0.3); font-size: 12px; }
+.rules-teaser-en {
+  font-family: 'Tajawal', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+.rules-arrow {
+  color: rgba(0,229,255,0.85);
+  animation: rulesBounce 1.4s infinite;
+}
+@keyframes rulesBounce {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+.rules-btn {
+  margin-top: 2px;
+  background: rgba(0,229,255,0.12);
+  border: 1px solid rgba(0,229,255,0.4);
+  color: #00e5ff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.rules-btn:hover { background: rgba(0,229,255,0.22); }
+
+/* ===== RULES MODAL ===== */
+.rules-modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 10px;
+}
+.rmodal-close {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.5);
+  font-size: 20px;
+  cursor: pointer;
+  line-height: 1;
+}
+.rmodal-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 18px;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255,215,0,0.5);
+  margin-bottom: 12px;
+  text-align: center;
+}
+.rmodal-body {
+  text-align: right;
+  direction: rtl;
+  width: 100%;
+}
+.rmodal-body.lang-en { text-align: left; direction: ltr; }
+.rule-section { margin-top: 20px; }
+.rule-section:first-child { margin-top: 0; }
+.rule-section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 10px;
+}
+.rule-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 11px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.rule-item:last-child { border-bottom: none; }
+.rule-badge {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  overflow: hidden;
+}
+.rule-text { flex: 1; }
+.rule-text-title { font-family: 'Tajawal', sans-serif; font-size: 14px; font-weight: 700; margin-bottom: 2px; color: #fff; }
+.rule-text-desc { font-family: 'Tajawal', sans-serif; font-size: 12.5px; color: rgba(255,255,255,0.55); line-height: 1.55; }
+.rmodal-body.lang-en .rule-text-title,
+.rmodal-body.lang-en .rule-text-desc { font-family: 'Rajdhani', sans-serif; }
+.badge-cyan { background: rgba(0,229,255,0.12); }
+.badge-gold { background: rgba(255,215,0,0.12); }
+.badge-red { background: rgba(255,59,59,0.12); }
 </style>
 </head>
 <body>
@@ -447,6 +565,30 @@ html,body { width:100%; height:100%; overflow:hidden; background:#000000; font-f
     <div class="or-divider" id="orDivider">— or —</div>
     <input class="inp" id="joinCode" placeholder="Room Code (6 digits)" maxlength="6" inputmode="numeric">
     <button class="btn btn-outline" onclick="joinRoom()" id="joinRoomBtn">🔗 Join Room</button>
+  </div>
+
+  <!-- RULES TEASER -->
+  <div class="rules-teaser" onclick="openRulesModal()">
+    <div class="rules-teaser-text">
+      <div class="rules-teaser-ar">لمعرفة قواعد اللعبة، اضغط هنا</div>
+      <span class="rules-teaser-sep">/</span>
+      <div class="rules-teaser-en">To learn the game rules, click here</div>
+    </div>
+    <div class="rules-arrow">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 4v14M6 13l6 6 6-6"/></svg>
+    </div>
+    <button class="rules-btn" onclick="event.stopPropagation();openRulesModal()">GAME RULES</button>
+  </div>
+</div>
+
+<!-- RULES MODAL -->
+<div class="popup-overlay" id="rules-modal">
+  <div class="popup-box" style="max-width:420px;max-height:85vh;overflow-y:auto;">
+    <div class="rules-modal-head">
+      <button class="rmodal-close" onclick="closeRulesModal()">×</button>
+    </div>
+    <div class="rmodal-title" id="rmodalTitle">قواعد اللعبة</div>
+    <div class="rmodal-body" id="rmodalBody"></div>
   </div>
 </div>
 
@@ -1419,9 +1561,17 @@ function renderBurnedZone(){
       n.textContent=card.number; el.appendChild(n);
     }
   } else {
-    const n=document.createElement('span');
-    n.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;text-align:center;padding:2px;font-family:Tajawal,sans-serif;font-weight:700;z-index:5;';
-    n.textContent=currentLang==='ar'?t(card.name):card.name; el.appendChild(n);
+    const sImg=getSpecialImage(card);
+    if(sImg){
+      const si=document.createElement('img');
+      si.src=sImg;
+      si.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;';
+      el.appendChild(si);
+    } else {
+      const n=document.createElement('span');
+      n.style.cssText='position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:7px;color:#fff;text-align:center;padding:2px;font-family:Tajawal,sans-serif;font-weight:700;z-index:5;';
+      n.textContent=currentLang==='ar'?t(card.name):card.name; el.appendChild(n);
+    }
   }
   const fl=document.createElement('div');
   fl.style.cssText='position:absolute;bottom:0;left:0;right:0;background:rgba(180,0,0,0.8);font-size:6px;text-align:center;color:#fff;padding:1px;z-index:6;';
@@ -1467,8 +1617,16 @@ function renderDiscard(){
   } else if(discardTop){
     const c=document.createElement('div'); c.className='discard-card';
     c.style.background=getCardBg(discardTop);
-    const cardText=discardTop.type==='special'?(currentLang==='ar'?t(discardTop.name):discardTop.name):(discardTop.number||discardTop.zone);
-    c.textContent=cardText;
+    const dImg=getSpecialImage(discardTop);
+    if(dImg){
+      c.style.position='relative'; c.style.overflow='hidden';
+      const di=document.createElement('img');
+      di.src=dImg;
+      di.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;';
+      c.appendChild(di);
+    } else {
+      c.textContent=discardTop.type==='special'?(currentLang==='ar'?t(discardTop.name):discardTop.name):(discardTop.number||discardTop.zone);
+    }
     slot.appendChild(c);
   }
   const lbl=document.createElement('div'); lbl.className='discard-label';
@@ -1873,32 +2031,53 @@ function makeMiniCard(card,clickable,zone,oppData){
   return el;
 }
 
+// خريطة صور الكروت الخاصة
+const specialImgMap = {
+  'Red Card':     'images/Gemini_Generated_Image_dgjci8dgjci8dgjc.jpg',
+  'Yellow Card':  'images/Gemini_Generated_Image_2ag7jc2ag7jc2ag7.jpg',
+  'Offside':      'images/Gemini_Generated_Image_crtcxrcrtcxrcrtc.jpg',
+  'Swap':         'images/Gemini_Generated_Image_6pycbk6pycbk6pyc.jpg',
+  'Contract':     'images/Gemini_Generated_Image_us2xluus2xluus2x.jpg',
+  'Cancel Order': 'images/Gemini_Generated_Image_3j0py53j0py53j0p.jpg',
+  'Trash Player': 'images/Gemini_Generated_Image_hqccqjhqccqjhqcc.jpg',
+  'Loan':         { ar:'images/Gemini_Generated_Image_pcn8q7pcn8q7pcn8.jpg', en:'images/Gemini_Generated_Image_je9mbdje9mbdje9m.jpg' },
+};
+function getSpecialImage(card){
+  if(!card || card.type!=='special') return null;
+  const v = specialImgMap[card.name];
+  if(!v) return null;
+  if(typeof v === 'string') return v;
+  return v[currentLang==='ar'?'ar':'en'] || v.en;
+}
+
 // خريطة الصور — كل رقم عنده مصفوفة لاعبين
 const playerImgMap = {
   'JOKER':  ['images/gullit.png'],
   'GK_1':   ['images/gk_courtois.png','images/gk_neuer.png','images/gk_buffon.png','images/Gemini_Generated_Image_tfyuputfyuputfyu.jpg','images/Gemini_Generated_Image_ntmjqpntmjqpntmj.jpg','images/Gemini_Generated_Image_ny64lbny64lbny64.jpg','images/Gemini_Generated_Image_ndac1nndac1nndac.jpg','images/Gemini_Generated_Image_ym5mx0ym5mx0ym5m.jpg','images/Gemini_Generated_Image_xys1hsxys1hsxys1.jpg','images/Gemini_Generated_Image_zf8lm5zf8lm5zf8l.jpg','images/Gemini_Generated_Image_ovf0leovf0leovf0.jpg','images/Gemini_Generated_Image_rxe5g2rxe5g2rxe5.jpg','images/Gemini_Generated_Image_rq2tjirq2tjirq2t.jpg','images/Gemini_Generated_Image_n9jrgvn9jrgvn9jr.jpg','images/Gemini_Generated_Image_c7usnsc7usnsc7us.jpg','images/Gemini_Generated_Image_4agzf94agzf94agz.jpg','images/Gemini_Generated_Image_g9j0p1g9j0p1g9j0.jpg','images/Gemini_Generated_Image_lx05clx05clx05cl.jpg','images/Gemini_Generated_Image_3bc1ik3bc1ik3bc1.jpg','images/Gemini_Generated_Image_2dvqm52dvqm52dvq.jpg','images/Gemini_Generated_Image_a9wb06a9wb06a9wb.jpg','images/Gemini_Generated_Image_2mn67z2mn67z2mn6.jpg','images/Gemini_Generated_Image_7tvibm7tvibm7tvi.jpg','images/Gemini_Generated_Image_6oj6wl6oj6wl6oj6.jpg','images/Gemini_Generated_Image_dfxg59dfxg59dfxg.jpg','images/Gemini_Generated_Image_4h8f7q4h8f7q4h8f.jpg','images/Gemini_Generated_Image_c13us8c13us8c13u.jpg','images/Gemini_Generated_Image_729eri729eri729e.jpg','images/Gemini_Generated_Image_bdlvmebdlvmebdlv.jpg','images/Gemini_Generated_Image_6o34bp6o34bp6o34.jpg'],
-  'DEF_2':  ['images/def2_cafu.png','images/def2_lahm.png'],
-  'DEF_3':  ['images/def3_maldini.png','images/def3_roberto.png'],
-  'DEF_4':  ['images/def4_beckenbauer.png','images/def4_ramos.png'],
-  'DEF_5':  ['images/def5_puyol.png','images/def5_cannavaro.png'],
-  'MID_6':  ['images/mid6_xavi.png','images/mid6_pogba.png'],
-  'MID_7':  ['images/mid7_beckham.png','images/mid7_debruyne.png'],
-  'MID_8':  ['images/mid8_iniesta.png','images/mid8_kroos.png'],
-  'ATK_9':  ['images/atk9_ronaldo.png','images/atk9_r9.png'],
-  'ATK_10': ['images/atk10_messi.png','images/atk10_pele.png'],
-  'ATK_11': ['images/atk11_neymar.png','images/atk11_salah.png'],
+  'DEF_2':  ['images/def2_cafu.png','images/def2_lahm.png','images/Gemini_Generated_Image_kpxivlkpxivlkpxi.jpg','images/Gemini_Generated_Image_ipgo80ipgo80ipgo.jpg','images/Gemini_Generated_Image_hrkuwmhrkuwmhrku.jpg','images/Gemini_Generated_Image_fhei1fhei1fhei1f.jpg','images/Gemini_Generated_Image_e17j80e17j80e17j.jpg','images/Gemini_Generated_Image_djth4sdjth4sdjth.jpg','images/Gemini_Generated_Image_cdsbzicdsbzicdsb.jpg','images/Gemini_Generated_Image_ama8arama8arama8.jpg','images/Gemini_Generated_Image_98mojb98mojb98mo.jpg','images/Gemini_Generated_Image_9absxo9absxo9abs.jpg','images/Gemini_Generated_Image_5fvilj5fvilj5fvi.jpg','images/Gemini_Generated_Image_3a6xeh3a6xeh3a6x.jpg','images/Gemini_Generated_Image_sm0pkhsm0pkhsm0p.jpg','images/Gemini_Generated_Image_mxdt8dmxdt8dmxdt.jpg','images/Gemini_Generated_Image_m1t2r7m1t2r7m1t2.jpg','images/Gemini_Generated_Image_l64ocil64ocil64o.jpg'],
+  'DEF_3':  ['images/def3_maldini.png','images/def3_roberto.png','images/Gemini_Generated_Image_jj97z3jj97z3jj97.jpg','images/Gemini_Generated_Image_j8j4n8j8j4n8j8j4.jpg','images/Gemini_Generated_Image_j0z4zjj0z4zjj0z4.jpg','images/Gemini_Generated_Image_fuyzs5fuyzs5fuyz.jpg','images/Gemini_Generated_Image_dhct88dhct88dhct.jpg','images/Gemini_Generated_Image_c7x835c7x835c7x8.jpg','images/Gemini_Generated_Image_bhuf06bhuf06bhuf.jpg','images/Gemini_Generated_Image_1805431805431805.jpg','images/Gemini_Generated_Image_5v61wf5v61wf5v61.jpg','images/Gemini_Generated_Image_5iv9rj5iv9rj5iv9.jpg','images/Gemini_Generated_Image_4if1364if1364if1.jpg','images/Gemini_Generated_Image_1fn9r1fn9r1fn9r1.jpg','images/Gemini_Generated_Image_z64kd8z64kd8z64k.jpg','images/Gemini_Generated_Image_v0ldzkv0ldzkv0ld.jpg','images/Gemini_Generated_Image_rc558drc558drc55.jpg','images/Gemini_Generated_Image_qev9vwqev9vwqev9.jpg'],
+  'DEF_4':  ['images/def4_beckenbauer.png','images/def4_ramos.png','images/Gemini_Generated_Image_uyu9jfuyu9jfuyu9.jpg','images/Gemini_Generated_Image_tve5rdtve5rdtve5.jpg','images/Gemini_Generated_Image_svt9hlsvt9hlsvt9.jpg','images/Gemini_Generated_Image_s1laq4s1laq4s1la.jpg','images/Gemini_Generated_Image_mluau6mluau6mlua.jpg','images/Gemini_Generated_Image_hmdazqhmdazqhmda.jpg','images/Gemini_Generated_Image_dp68qodp68qodp68.jpg','images/Gemini_Generated_Image_bvl9rjbvl9rjbvl9.jpg','images/Gemini_Generated_Image_79mt9j79mt9j79mt.jpg','images/Gemini_Generated_Image_9xpcs99xpcs99xpc.jpg','images/Gemini_Generated_Image_3lgoqy3lgoqy3lgo.jpg','images/Gemini_Generated_Image_1uv8761uv8761uv8.jpg','images/Gemini_Generated_Image_yewctdyewctdyewc.jpg','images/Gemini_Generated_Image_wksm2owksm2owksm.jpg','images/Gemini_Generated_Image_wdakqcwdakqcwdak.jpg'],
+  'DEF_5':  ['images/def5_puyol.png','images/def5_cannavaro.png','images/Gemini_Generated_Image_qko9hqqko9hqqko9.jpg','images/Gemini_Generated_Image_o0uf5ho0uf5ho0uf.jpg','images/Gemini_Generated_Image_lmuppllmuppllmup.jpg','images/Gemini_Generated_Image_ivgxsbivgxsbivgx.jpg','images/Gemini_Generated_Image_hmkfgkhmkfgkhmkf.jpg','images/Gemini_Generated_Image_gtncl1gtncl1gtnc.jpg','images/Gemini_Generated_Image_drtouudrtouudrto.jpg','images/Gemini_Generated_Image_bor47abor47abor4.jpg','images/Gemini_Generated_Image_bn3lepbn3lepbn3l.jpg','images/Gemini_Generated_Image_7niel07niel07nie.jpg','images/Gemini_Generated_Image_3ged303ged303ged.jpg','images/Gemini_Generated_Image_1bfwlh1bfwlh1bfw.jpg','images/Gemini_Generated_Image_z9lcm9z9lcm9z9lc.jpg','images/Gemini_Generated_Image_war6bqwar6bqwar6.jpg','images/Gemini_Generated_Image_t2bfs7t2bfs7t2bf.jpg'],
+  'MID_6':  ['images/mid6_xavi.png','images/mid6_pogba.png','images/Gemini_Generated_Image_rxtv8arxtv8arxtv.jpg','images/Gemini_Generated_Image_oevvmroevvmroevv.jpg','images/Gemini_Generated_Image_mxve9vmxve9vmxve.jpg','images/Gemini_Generated_Image_lpug51lpug51lpug.jpg','images/Gemini_Generated_Image_l213nfl213nfl213.jpg','images/Gemini_Generated_Image_kemylgkemylgkemy.jpg','images/Gemini_Generated_Image_ke056jke056jke05.jpg','images/Gemini_Generated_Image_iqm6jmiqm6jmiqm6.jpg','images/Gemini_Generated_Image_hfkjyghfkjyghfkj.jpg','images/Gemini_Generated_Image_cxogbkcxogbkcxog.jpg','images/Gemini_Generated_Image_9grhhy9grhhy9grh.jpg','images/Gemini_Generated_Image_1nv4df1nv4df1nv4.jpg','images/Gemini_Generated_Image_w7ry5sw7ry5sw7ry.jpg','images/Gemini_Generated_Image_tiek0etiek0etiek.jpg','images/Gemini_Generated_Image_s6us6ps6us6ps6us.jpg'],
+  'MID_7':  ['images/mid7_beckham.png','images/mid7_debruyne.png','images/Gemini_Generated_Image_uzk5c0uzk5c0uzk5.jpg','images/Gemini_Generated_Image_rcqdv7rcqdv7rcqd.jpg','images/Gemini_Generated_Image_rbm3oarbm3oarbm3.jpg','images/Gemini_Generated_Image_mz7vz9mz7vz9mz7v.jpg','images/Gemini_Generated_Image_l4q7vbl4q7vbl4q7.jpg','images/Gemini_Generated_Image_jjzowzjjzowzjjzo.jpg','images/Gemini_Generated_Image_gt5uosgt5uosgt5u.jpg','images/Gemini_Generated_Image_153b4k153b4k153b.jpg','images/Gemini_Generated_Image_9m00ya9m00ya9m00.jpg','images/Gemini_Generated_Image_8z5ber8z5ber8z5b.jpg','images/Gemini_Generated_Image_7wkdj37wkdj37wkd.jpg','images/Gemini_Generated_Image_5mfrt05mfrt05mfr.jpg','images/Gemini_Generated_Image_y2w5l6y2w5l6y2w5.jpg','images/Gemini_Generated_Image_wg9vthwg9vthwg9v.jpg','images/Gemini_Generated_Image_vtdkgdvtdkgdvtdk.jpg'],
+  'MID_8':  ['images/mid8_iniesta.png','images/mid8_kroos.png','images/Gemini_Generated_Image_o2m4uxo2m4uxo2m4.jpg','images/Gemini_Generated_Image_lnioxzlnioxzlnio.jpg','images/Gemini_Generated_Image_l74lghl74lghl74l.jpg','images/Gemini_Generated_Image_jc0o5ijc0o5ijc0o.jpg','images/Gemini_Generated_Image_iz87bqiz87bqiz87.jpg','images/Gemini_Generated_Image_bqm74ibqm74ibqm7.jpg','images/Gemini_Generated_Image_arnbk1arnbk1arnb.jpg','images/Gemini_Generated_Image_739cmy739cmy739c.jpg','images/Gemini_Generated_Image_6rl4a46rl4a46rl4.jpg','images/Gemini_Generated_Image_3h3mko3h3mko3h3m.jpg','images/Gemini_Generated_Image_3gcgdh3gcgdh3gcg.jpg','images/Gemini_Generated_Image_1ljz6a1ljz6a1ljz.jpg','images/Gemini_Generated_Image_tz98iytz98iytz98.jpg','images/Gemini_Generated_Image_o9r3xuo9r3xuo9r3.jpg'],
+  'ATK_9':  ['images/atk9_ronaldo.png','images/atk9_r9.png','images/Gemini_Generated_Image_z3vg4yz3vg4yz3vg.jpg','images/Gemini_Generated_Image_ndd8ljndd8ljndd8.jpg','images/Gemini_Generated_Image_mv7xhqmv7xhqmv7x.jpg','images/Gemini_Generated_Image_ihl7vpihl7vpihl7.jpg','images/Gemini_Generated_Image_i199oni199oni199.jpg','images/Gemini_Generated_Image_cygxskcygxskcygx.jpg','images/Gemini_Generated_Image_cecbc2cecbc2cecb.jpg','images/Gemini_Generated_Image_5ywh3s5ywh3s5ywh.jpg'],
+  'ATK_10': ['images/atk10_messi.png','images/atk10_pele.png','images/Gemini_Generated_Image_vy8d1tvy8d1tvy8d.jpg','images/Gemini_Generated_Image_rp2szvrp2szvrp2s.jpg','images/Gemini_Generated_Image_kefw1kefw1kefw1k.jpg','images/Gemini_Generated_Image_c3k4iuc3k4iuc3k4.jpg','images/Gemini_Generated_Image_c2n9dac2n9dac2n9.jpg','images/Gemini_Generated_Image_bdzjo0bdzjo0bdzj.jpg','images/Gemini_Generated_Image_50162n50162n5016.jpg','images/Gemini_Generated_Image_3nssy93nssy93nss.jpg'],
+  'ATK_11': ['images/atk11_neymar.png','images/atk11_salah.png','images/Gemini_Generated_Image_v7fhdnv7fhdnv7fh.jpg','images/Gemini_Generated_Image_norkcznorkcznork.jpg','images/Gemini_Generated_Image_lv9n1hlv9n1hlv9n.jpg','images/Gemini_Generated_Image_lr5ff5lr5ff5lr5f.jpg','images/Gemini_Generated_Image_gco3eagco3eagco3.jpg','images/Gemini_Generated_Image_ga0x0wga0x0wga0x.jpg','images/Gemini_Generated_Image_emhwhsemhwhsemhw.jpg','images/Gemini_Generated_Image_874wsc874wsc874w.jpg'],
 };
 
 // preload كل الصور مرة واحدة عشان ماتتحملش كل مرة
 function preloadAllImages(){
   const all=[];
   Object.values(playerImgMap).forEach(arr=>arr.forEach(src=>all.push(src)));
+  Object.values(specialImgMap).forEach(v=>{ if(typeof v==='string') all.push(v); else Object.values(v).forEach(x=>all.push(x)); });
   all.forEach(src=>{const i=new Image();i.src=src;});
 }
 
 // كاش عشان نفس الكارت (نفس id) دايما نفس الصورة
 const cardImgCache = {};
 function getPlayerImage(card){
+  if(card.type==='special'){ return getSpecialImage(card); }
   const key = card.joker ? 'JOKER' : (card.zone + '_' + card.number);
   const arr = playerImgMap[key];
   if(!arr || arr.length===0) return null;
@@ -1953,11 +2132,20 @@ function makeHandCard(card){
     }
 
   } else {
-    // كروت خاصة
-    const n=document.createElement('div');
-    n.style.cssText='font-size:8px;color:#fff;text-align:center;padding:4px;line-height:1.4;z-index:2;position:relative;font-family:Tajawal,sans-serif;font-weight:700;';
-    n.textContent=currentLang==='ar'?t(card.name):card.name;
-    el.appendChild(n);
+    // كروت خاصة — صورة بدون أي كلام
+    const sImg=getSpecialImage(card);
+    if(sImg){
+      const si=document.createElement('img');
+      si.src=sImg;
+      si.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;z-index:2;';
+      si.loading='lazy';
+      el.appendChild(si);
+    } else {
+      const n=document.createElement('div');
+      n.style.cssText='font-size:8px;color:#fff;text-align:center;padding:4px;line-height:1.4;z-index:2;position:relative;font-family:Tajawal,sans-serif;font-weight:700;';
+      n.textContent=currentLang==='ar'?t(card.name):card.name;
+      el.appendChild(n);
+    }
   }
   if(isMyTurn){
     el.onclick=()=>{
@@ -2418,6 +2606,114 @@ renderOppFormation=function(){
   });
 };
 
+</script>
+
+<script>
+// ========== GAME RULES MODAL ==========
+const RULES_CONTENT = {
+  en: {
+    title: 'GAME RULES',
+    sections: [
+      {
+        heading: 'HOW TO WIN',
+        items: [
+          { icon:'🏆', badge:'badge-cyan', title:'Complete a valid formation', desc:'Build your squad into one of three formations: 4-3-3, 4-4-2, or 5-3-2 — always with 1 goalkeeper.' },
+          { icon:'⭐', badge:'badge-gold', title:'Have a captain on the field', desc:'At least one card on your field must be a captain card.' },
+          { icon:'✨', badge:'badge-gold', title:'Star players in every line, or consecutive numbers', desc:'Win in one of two ways: either have a star player in your defense, midfield, and attack at the same time, or achieve consecutive numbers in one line — 2-3-4 or 3-4-5 in defense, 6-7-8 in midfield, or 9-10-11 in attack. The Gullit card can complete the missing number in the sequence.' }
+        ]
+      },
+      {
+        heading: 'ON YOUR TURN',
+        items: [
+          { icon:'🃏', badge:'badge-cyan', title:'Draw up to 2 cards', desc:'Draw from the deck up to twice per turn.' },
+          { icon:'⚽', badge:'badge-cyan', title:'Place up to 2 cards', desc:'Place player cards or play special cards, up to 2 actions per turn, then end your turn.' },
+          { icon:'📋', badge:'badge-cyan', title:'Respect zone limits', desc:'Max per zone: 1 goalkeeper, 5 defenders, 4 midfielders, 3 attackers — 11 players total.' }
+        ]
+      },
+      {
+        heading: 'SPECIAL CARDS',
+        items: [
+          { icon:'🔴', badge:'badge-red', title:'Red Card', desc:'Instantly removes a chosen player from an opponent\'s field.', img:'images/Gemini_Generated_Image_dgjci8dgjci8dgjc.jpg' },
+          { icon:'🟡', badge:'badge-gold', title:'Yellow Card', desc:'Cautions a player. A second yellow on the same card removes it from the field.', img:'images/Gemini_Generated_Image_2ag7jc2ag7jc2ag7.jpg' },
+          { icon:'🚫', badge:'badge-cyan', title:'Offside', desc:'Skips the target player\'s next turn.', img:'images/Gemini_Generated_Image_crtcxrcrtcxrcrtc.jpg' },
+          { icon:'🔄', badge:'badge-cyan', title:'Swap', desc:'Trade one of your field players for one of an opponent\'s.', img:'images/Gemini_Generated_Image_6pycbk6pycbk6pyc.jpg' },
+          { icon:'📝', badge:'badge-gold', title:'Contract', desc:'Permanently takes a player from an opponent\'s field onto yours.', img:'images/Gemini_Generated_Image_us2xluus2xluus2x.jpg' },
+          { icon:'⏳', badge:'badge-cyan', title:'Loan', desc:'Borrows an opponent\'s player for 2 turns, then returns them automatically.', img:'images/Gemini_Generated_Image_je9mbdje9mbdje9m.jpg' },
+          { icon:'🛡️', badge:'badge-cyan', title:'Cancel Order', desc:'Cancels a special card played against you — use it within the reaction window.', img:'images/Gemini_Generated_Image_3j0py53j0py53j0p.jpg' },
+          { icon:'🗑️', badge:'badge-red', title:'Trash Player', desc:'Removes one of your own field players — used to fix a bad placement.', img:'images/Gemini_Generated_Image_hqccqjhqccqjhqcc.jpg' },
+          { icon:'👑', badge:'badge-gold', title:'Gullit', desc:'A wildcard player that can slot into any zone and fill in for a missing number in a consecutive sequence.', isGullit:true }
+        ]
+      }
+    ]
+  },
+  ar: {
+    title: 'قواعد اللعبة',
+    sections: [
+      {
+        heading: 'شروط الفوز',
+        items: [
+          { icon:'🏆', badge:'badge-cyan', title:'تكوين تشكيلة صحيحة', desc:'يجب ترتيب اللاعبين في إحدى التشكيلات الثلاث: 4-3-3 أو 4-4-2 أو 5-3-2، مع حارس مرمى واحد دائماً.' },
+          { icon:'⭐', badge:'badge-gold', title:'وجود كابتن في التشكيلة', desc:'يجب أن يحتوي الملعب على كارت كابتن واحد على الأقل.' },
+          { icon:'✨', badge:'badge-gold', title:'نجمة في كل خط أو أرقام متتالية', desc:'يتحقق الفوز بإحدى طريقتين: إما وجود لاعب نجمة في الدفاع والوسط والهجوم في آن واحد، أو تحقيق أرقام متتالية في أحد الخطوط: 2-3-4 أو 3-4-5 في الدفاع، 6-7-8 في الوسط، أو 9-10-11 في الهجوم. ويمكن لكارت خوليت أن يكمّل الرقم الناقص في التسلسل.' }
+        ]
+      },
+      {
+        heading: 'أثناء الدور',
+        items: [
+          { icon:'🃏', badge:'badge-cyan', title:'سحب حتى بطاقتين', desc:'يمكن سحب بطاقتين من المجموعة كحد أقصى في الدور الواحد.' },
+          { icon:'⚽', badge:'badge-cyan', title:'وضع حتى بطاقتين', desc:'يمكن وضع لاعبين أو استخدام بطاقات خاصة، بحد أقصى حركتين في الدور الواحد، ثم إنهاء الدور.' },
+          { icon:'📋', badge:'badge-cyan', title:'الالتزام بحدود كل مركز', desc:'الحد الأقصى لكل مركز: حارس مرمى واحد، خمسة مدافعين، أربعة لاعبي وسط، وثلاثة مهاجمين، بإجمالي أحد عشر لاعباً.' }
+        ]
+      },
+      {
+        heading: 'البطاقات الخاصة',
+        items: [
+          { icon:'🔴', badge:'badge-red', title:'البطاقة الحمراء', desc:'تطرد فوراً لاعباً مختاراً من ملعب الخصم.', img:'images/Gemini_Generated_Image_dgjci8dgjci8dgjc.jpg' },
+          { icon:'🟡', badge:'badge-gold', title:'البطاقة الصفراء', desc:'تنذر لاعباً. عند حصوله على إنذار ثانٍ يُطرد من الملعب.', img:'images/Gemini_Generated_Image_2ag7jc2ag7jc2ag7.jpg' },
+          { icon:'🚫', badge:'badge-cyan', title:'التسلل', desc:'تُلغي دور اللاعب المستهدف القادم.', img:'images/Gemini_Generated_Image_crtcxrcrtcxrcrtc.jpg' },
+          { icon:'🔄', badge:'badge-cyan', title:'التبديل', desc:'تُبدّل أحد لاعبيك بلاعب من ملعب الخصم.', img:'images/Gemini_Generated_Image_6pycbk6pycbk6pyc.jpg' },
+          { icon:'📝', badge:'badge-gold', title:'العقد', desc:'تنقل لاعباً من ملعب الخصم إلى ملعبك بشكل نهائي.', img:'images/Gemini_Generated_Image_us2xluus2xluus2x.jpg' },
+          { icon:'⏳', badge:'badge-cyan', title:'الإعارة', desc:'تستعير لاعباً من الخصم لمدة دورين، ثم يعود إليه تلقائياً.', img:'images/Gemini_Generated_Image_pcn8q7pcn8q7pcn8.jpg' },
+          { icon:'🛡️', badge:'badge-cyan', title:'إلغاء الأمر', desc:'تُلغي بطاقة خاصة استُخدمت ضدك، ويجب استخدامها خلال فترة الرد المحددة.', img:'images/Gemini_Generated_Image_3j0py53j0py53j0p.jpg' },
+          { icon:'🗑️', badge:'badge-red', title:'استبعاد لاعب', desc:'تُزيل أحد لاعبيك من ملعبك، وتُستخدم لتصحيح خطأ في الوضع.', img:'images/Gemini_Generated_Image_hqccqjhqccqjhqcc.jpg' },
+          { icon:'👑', badge:'badge-gold', title:'خوليت', desc:'لاعب مشترك يمكنه شغل أي مركز، ويكمّل الرقم الناقص في تسلسل الأرقام المتتالية.', isGullit:true }
+        ]
+      }
+    ]
+  }
+};
+
+function renderRulesModal() {
+  const rulesLang = (typeof currentLang !== 'undefined' && currentLang === 'en') ? 'en' : 'ar';
+  const data = RULES_CONTENT[rulesLang];
+  const body = document.getElementById('rmodalBody');
+  body.className = 'rmodal-body' + (rulesLang === 'en' ? ' lang-en' : '');
+  body.setAttribute('dir', rulesLang === 'ar' ? 'rtl' : 'ltr');
+  body.innerHTML = data.sections.map(sec => `
+    <div class="rule-section">
+      <div class="rule-section-title">${sec.heading}</div>
+      ${sec.items.map(it => `
+        <div class="rule-item">
+          <div class="rule-badge ${it.badge}">${it.isGullit ? `<img src="images/gullit.png" alt="Gullit" style="width:100%;height:100%;object-fit:cover;object-position:center 15%;border-radius:8px;">` : (it.img ? `<img src="${it.img}" alt="${it.title}" style="width:100%;height:100%;object-fit:cover;object-position:center;border-radius:8px;">` : it.icon)}</div>
+          <div class="rule-text">
+            <div class="rule-text-title">${it.title}</div>
+            <div class="rule-text-desc">${it.desc}</div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+  document.getElementById('rmodalTitle').textContent = data.title;
+}
+
+function openRulesModal() {
+  renderRulesModal();
+  document.getElementById('rules-modal').classList.add('show');
+}
+
+function closeRulesModal() {
+  document.getElementById('rules-modal').classList.remove('show');
+}
 </script>
 
 <!-- CHAT TOGGLE BUTTON -->
