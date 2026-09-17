@@ -45,21 +45,21 @@ function buildDeck() {
   // رقم 4: بيكنباور + راموس | رقم 5: بويول + كانافارو
   // ===================================================
   // رقم 2 — 18 كارت: 10 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<10;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:false,captain:false,player:'كافو/لام',imgIdx:nextImg('DEF_2',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:true,captain:false,player:'كافو/لام',imgIdx:nextImg('DEF_2',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:true,captain:true,player:'كافو/لام',imgIdx:nextImg('DEF_2',2)});
+  for(let i=0;i<10;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:false,captain:false,player:'كافو/لام',imgIdx:nextImg('DEF_2',18)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:true,captain:false,player:'كافو/لام',imgIdx:nextImg('DEF_2',18)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:2,star:true,captain:true,player:'كافو/لام',imgIdx:nextImg('DEF_2',18)});
   // رقم 3 — 18 كارت: 10 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<10;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:false,captain:false,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:true,captain:false,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:true,captain:true,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',2)});
+  for(let i=0;i<10;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:false,captain:false,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',18)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:true,captain:false,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',18)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:3,star:true,captain:true,player:'مالديني/كارلوس',imgIdx:nextImg('DEF_3',18)});
   // رقم 4 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:false,captain:false,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:true,captain:false,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:true,captain:true,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',2)});
+  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:false,captain:false,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',17)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:true,captain:false,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',17)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:4,star:true,captain:true,player:'بيكنباور/راموس',imgIdx:nextImg('DEF_4',17)});
   // رقم 5 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:false,captain:false,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:true,captain:false,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:true,captain:true,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',2)});
+  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:false,captain:false,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',17)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:true,captain:false,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',17)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'DEF',number:5,star:true,captain:true,player:'بويول/كانافارو',imgIdx:nextImg('DEF_5',17)});
 
   // ===================================================
   // MIDFIELD — 50 كارت — 3 أرقام (6,7,8)
@@ -67,9 +67,9 @@ function buildDeck() {
   // رقم 8: إنييستا + كروس
   // ===================================================
   // رقم 6 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:false,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:true,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',2)});
+  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:false,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:true,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
   // رقم 7 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن
   for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:false,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',2)});
   for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:true,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',2)});
