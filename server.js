@@ -70,32 +70,32 @@ function buildDeck() {
   for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:false,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
   for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:false,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
   for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:6,star:true,captain:true,player:'تشافي/بوغبا',imgIdx:nextImg('MID_6',17)});
-  // رقم 7 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:false,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',2)});
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:true,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:true,captain:true,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',2)});
-  // رقم 8 — 16 كارت: 9 عادي + 4 نجمة + 3 نجمة+كابتن
-  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:false,captain:false,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',2)});
-  for(let i=0;i<4;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:true,captain:false,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:true,captain:true,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',2)});
+  // رقم 7 — 17 كارت: 9 عادي + 5 نجمة + 3 نجمة+كابتن ← التعديل: 2 → 17
+  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:false,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',17)});
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:true,captain:false,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',17)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:7,star:true,captain:true,player:'بيكهام/دي برويين',imgIdx:nextImg('MID_7',17)});
+  // رقم 8 — 16 كارت: 9 عادي + 4 نجمة + 3 نجمة+كابتن ← التعديل: 2 → 16
+  for(let i=0;i<9;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:false,captain:false,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',16)});
+  for(let i=0;i<4;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:true,captain:false,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',16)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'MID',number:8,star:true,captain:true,player:'إنييستا/كروس',imgIdx:nextImg('MID_8',16)});
 
   // ===================================================
   // ATTACK — 30 كارت — 3 أرقام (9,10,11) — 10 كارت لكل رقم
   // رقم 9: رونالدو + رونالدو البرازيلي | رقم 10: ميسي + بيليه
   // رقم 11: نيمار + صلاح
   // ===================================================
-  // رقم 9 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:false,captain:false,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:true,captain:false,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',2)});
-  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:true,captain:true,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',2)});
-  // رقم 10 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:false,captain:false,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:true,captain:false,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',2)});
-  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:true,captain:true,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',2)});
-  // رقم 11 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن
-  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:false,captain:false,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',2)});
-  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:true,captain:false,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',2)});
-  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:true,captain:true,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',2)});
+  // رقم 9 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن ← التعديل: 2 → 10
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:false,captain:false,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',10)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:true,captain:false,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',10)});
+  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:9,star:true,captain:true,player:'رونالدو/رونالدو البرازيلي',imgIdx:nextImg('ATK_9',10)});
+  // رقم 10 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن ← التعديل: 2 → 10
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:false,captain:false,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',10)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:true,captain:false,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',10)});
+  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:10,star:true,captain:true,player:'ميسي/بيليه',imgIdx:nextImg('ATK_10',10)});
+  // رقم 11 — 10 كارت: 5 عادي + 3 نجمة + 2 نجمة+كابتن ← التعديل: 2 → 10
+  for(let i=0;i<5;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:false,captain:false,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',10)});
+  for(let i=0;i<3;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:true,captain:false,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',10)});
+  for(let i=0;i<2;i++) deck.push({id:id++,type:'player',zone:'ATK',number:11,star:true,captain:true,player:'نيمار/صلاح',imgIdx:nextImg('ATK_11',10)});
 
   // JOKER (10) — كارت خوليت — كلهم نجمة+كابتن — بدون رقم
   for (let i = 0; i < 10; i++) deck.push({ id: id++, type: 'player', zone: 'JOKER', number: null, star: true, captain: true, joker: true, imgIdx: 0 });
@@ -290,7 +290,7 @@ io.on('connection', (socket) => {
     io.to(code).emit('players_update', { players: room.players.map(p => p.name) });
   });
 
-  // ========== التعديل 3: إضافة زر START GAME ==========
+  // START GAME
   socket.on('start_game', () => {
     const code = socket.data.roomCode;
     const room = rooms[code];
@@ -371,7 +371,7 @@ io.on('connection', (socket) => {
     const targetZone = card.zone === 'JOKER' ? zone : card.zone;
     player.field[targetZone].push(card);
 
-    // ========== التعديل 1: فحص الفوز بعد كل Place ==========
+    // فحص الفوز بعد كل Place
     if (checkWin(player)) {
       io.to(code).emit('game_over', { winner: player.name, winnerField: player.field, burnedPile: room.burnedPile || [] });
       room.state = 'finished';
@@ -396,14 +396,14 @@ io.on('connection', (socket) => {
       if (idx !== -1) {
         const [joker] = player.field[zone].splice(idx, 1);
         player.field[newZone].push(joker);
-        
-        // ========== التعديل 1: فحص الفوز بعد نقل الجوكر ==========
+
+        // فحص الفوز بعد نقل الجوكر
         if (checkWin(player)) {
           io.to(code).emit('game_over', { winner: player.name, winnerField: player.field, burnedPile: room.burnedPile || [] });
           room.state = 'finished';
           return;
         }
-        
+
         broadcastState(room);
         return;
       }
@@ -532,8 +532,7 @@ io.on('connection', (socket) => {
     const card = player.hand[cardIdx];
     if (card.type !== 'special') return;
 
-    // ========== فحص الحد الأقصى للملعب وللمراكز قبل Contract/Loan ==========
-    // الفحص ده يتم قبل حساب _placedThisTurn عشان لو الكارت مش هينفذ ميحسبش لعبة
+    // فحص الحد الأقصى للملعب وللمراكز قبل Contract/Loan
     const target = room.players[targetPlayerIdx];
     if (card.name === 'Contract' || card.name === 'Loan') {
       const currentFieldCount = getFieldCount(player);
@@ -698,11 +697,11 @@ function applySpecial(room, { card, fromIdx, targetPlayerIdx, targetCardId, targ
       if (!defender) break;
       for (const zone of Object.keys(defender.field)) {
         const idx = defender.field[zone].findIndex(c => c.id === targetCardId);
-        if (idx !== -1) { 
+        if (idx !== -1) {
           const [burned] = defender.field[zone].splice(idx, 1);
           room.burnedPile = room.burnedPile || [];
           room.burnedPile.push({ ...burned, burnedBy: 'red', burnedFrom: defender.name });
-          break; 
+          break;
         }
       }
       break;
@@ -714,11 +713,11 @@ function applySpecial(room, { card, fromIdx, targetPlayerIdx, targetCardId, targ
         delete defender.yellows[targetCardId];
         for (const zone of Object.keys(defender.field)) {
           const idx = defender.field[zone].findIndex(c => c.id === targetCardId);
-          if (idx !== -1) { 
+          if (idx !== -1) {
             const [burned] = defender.field[zone].splice(idx, 1);
             room.burnedPile = room.burnedPile || [];
             room.burnedPile.push({ ...burned, burnedBy: 'yellow2', burnedFrom: defender.name });
-            break; 
+            break;
           }
         }
       }
